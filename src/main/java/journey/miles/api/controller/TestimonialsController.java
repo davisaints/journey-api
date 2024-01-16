@@ -62,4 +62,34 @@ public class TestimonialsController {
     public ResponseEntity<List<Testimonial>> getByUserName(@RequestParam(name = "userName") String userName) {
         return ResponseEntity.status(HttpStatus.OK).body(repository.findByUserName(userName));
     }
+
+    private void _validateImageSize(MultipartFile profilePicture) {
+        if (profilePicture.getSize() > 500000) {
+            throw new InvalidImageSizeException("Image size exceeds the allowed limit. Please ensure that the image is smaller than 2 MB.");
+        }
+    }
+
+    private void _validateImageFormat(MultipartFile profilePicture) {
+        String originalFileName = profilePicture.getOriginalFilename();
+
+        assert originalFileName != null;
+        int lastDotIndex = originalFileName.lastIndexOf(".");
+
+        if (lastDotIndex != -1 && lastDotIndex < originalFileName.length() - 1) {
+            String extension = originalFileName.substring(lastDotIndex + 1).toLowerCase();
+
+            if (!_containsExtension(extension)) {
+                throw new UnsupportedFileExtensionException("Unsupported extension. Please upload an image with one of the following extensions: jpg, jpeg, png, webp, svg.");
+            }
+        }
+    }
+
+    private boolean _containsExtension(String target) {
+        for (String extension : Constants.imageExtensions) {
+            if (extension.equalsIgnoreCase(target)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
