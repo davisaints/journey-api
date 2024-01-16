@@ -28,4 +28,28 @@ public class TestimonialsController {
     @Autowired(required = true)
     private TestimonialRepository repository;
 
+    @PostMapping
+    public ResponseEntity<String> postTestimonials(@Valid @ModelAttribute TestimonialDTOConverter testimonialDTOConverter) throws IOException {
+        _validateImageSize(testimonialDTOConverter.profilePicture());
+        _validateImageFormat(testimonialDTOConverter.profilePicture());
+
+        try {
+            String profilePictureEncoded =
+                    Base64.getEncoder().encodeToString(testimonialDTOConverter.profilePicture().getBytes());
+
+            Testimonial testimonial = new Testimonial(testimonialDTOConverter.userName(),
+                    testimonialDTOConverter.testimonial(), profilePictureEncoded);
+
+            repository.save(testimonial);
+
+            return new ResponseEntity<>("Testimonial posted successfully", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            String errorMessage = "Data truncation: " + e.getMessage();
+            return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            throw new RuntimeException("An unexpected error occurred", e);
+        }
+    }
 }
