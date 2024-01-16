@@ -1,0 +1,6 @@
+## Flyway
+mvn flyway:repair -Dflyway.url=jdbc:mysql://0.0.0.0:3307/journey -Dflyway.user=root -Dflyway.password=
+mvn flyway:repair
+
+## Kill port
+npx kill-port 8080
