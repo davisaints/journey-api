@@ -52,4 +52,14 @@ public class TestimonialsController {
             throw new RuntimeException("An unexpected error occurred", e);
         }
     }
+
+    @GetMapping
+    public Page<Testimonial> getAllTestimonials(@PageableDefault(size = 5, sort = {"userName"}) Pageable pagination) {
+        return repository.findAll(pagination);
+    }
+
+    @GetMapping("/get-by-user-name")
+    public ResponseEntity<List<Testimonial>> getByUserName(@RequestParam(name = "userName") String userName) {
+        return ResponseEntity.status(HttpStatus.OK).body(repository.findByUserName(userName));
+    }
 }
