@@ -9,6 +9,7 @@ public record TestimonialDTOConverter(@NotBlank String userName,
                                               "The testimonial must have a maximum of {max} " +
                                                       "characters")
                                       String testimonial,
-                                      MultipartFile profilePicture) {
+                                      MultipartFile profilePicture,
+                                      Long id) {
 }
     
