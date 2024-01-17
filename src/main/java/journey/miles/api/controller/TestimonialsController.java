@@ -34,11 +34,8 @@ public class TestimonialsController {
         _validateImageFormat(testimonialDTOConverter.profilePicture());
 
         try {
-            String profilePictureEncoded =
-                    Base64.getEncoder().encodeToString(testimonialDTOConverter.profilePicture().getBytes());
-
             Testimonial testimonial = new Testimonial(testimonialDTOConverter.userName(),
-                    testimonialDTOConverter.testimonial(), profilePictureEncoded);
+                    testimonialDTOConverter.testimonial(), _encodeBase64ToString(testimonialDTOConverter.profilePicture()));
 
             repository.save(testimonial);
 
