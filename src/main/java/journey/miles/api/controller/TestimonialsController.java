@@ -1,5 +1,6 @@
 package journey.miles.api.controller;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import journey.miles.api.constants.Constants;
 import journey.miles.api.dto.TestimonialDTOConverter;
@@ -29,6 +30,7 @@ public class TestimonialsController {
     private TestimonialRepository repository;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<String> postTestimonials(@Valid @ModelAttribute TestimonialDTOConverter testimonialDTOConverter) throws IOException {
         _validateImageSize(testimonialDTOConverter.profilePicture());
         _validateImageFormat(testimonialDTOConverter.profilePicture());
