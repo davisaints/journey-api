@@ -93,6 +93,11 @@ public class TestimonialsController {
         repository.deleteById(id);
         return new ResponseEntity<>("Testimonial deleted successfully", HttpStatus.OK);
     }
+
+    private String _encodeBase64ToString(MultipartFile multipartFile) throws IOException {
+        return Base64.getEncoder().encodeToString(multipartFile.getBytes());
+    }
+
     private void _validateImageSize(MultipartFile profilePicture) {
         if (profilePicture.getSize() > 500000) {
             throw new InvalidImageSizeException("Image size exceeds the allowed limit. Please ensure that the image is smaller than 2 MB.");
