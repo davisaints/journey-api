@@ -84,6 +84,15 @@ public class TestimonialsController {
 
         return new ResponseEntity<>("Testimonial updated successfully", HttpStatus.OK);
     }
+
+    @DeleteMapping("{id}")
+    @Transactional
+    public ResponseEntity<String> deleteTestimonial(@PathVariable("id") long id) {
+        repository.findById(id).orElseThrow();
+
+        repository.deleteById(id);
+        return new ResponseEntity<>("Testimonial deleted successfully", HttpStatus.OK);
+    }
     private void _validateImageSize(MultipartFile profilePicture) {
         if (profilePicture.getSize() > 500000) {
             throw new InvalidImageSizeException("Image size exceeds the allowed limit. Please ensure that the image is smaller than 2 MB.");
