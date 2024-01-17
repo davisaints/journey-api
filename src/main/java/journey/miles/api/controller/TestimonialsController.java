@@ -63,6 +63,27 @@ public class TestimonialsController {
         return ResponseEntity.status(HttpStatus.OK).body(repository.findByUserName(userName));
     }
 
+    @PutMapping
+    @Transactional
+    public ResponseEntity<String> putTestimonial(@ModelAttribute @Valid TestimonialDTOConverter testimonialDTOConverter,
+                               long id) throws IOException {
+        Testimonial testimonial =
+                repository.findById(testimonialDTOConverter.id()).orElseThrow(() -> new RuntimeException("Testimonial not found with the Id provided"));
+        _validateImageSize(testimonialDTOConverter.profilePicture());
+        _validateImageFormat(testimonialDTOConverter.profilePicture());
+        String profilePicture64 =
+                _encodeBase64ToString(testimonialDTOConverter.profilePicture());
+
+        testimonial.setProfilePicture64(profilePicture64);
+
+        testimonial.setUserName(testimonialDTOConverter.userName());
+
+        testimonial.setTestimonial(testimonialDTOConverter.testimonial());
+
+        repository.save(testimonial);
+
+        return new ResponseEntity<>("Testimonial updated successfully", HttpStatus.OK);
+    }
     private void _validateImageSize(MultipartFile profilePicture) {
         if (profilePicture.getSize() > 500000) {
             throw new InvalidImageSizeException("Image size exceeds the allowed limit. Please ensure that the image is smaller than 2 MB.");
