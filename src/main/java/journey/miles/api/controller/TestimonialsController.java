@@ -24,6 +24,7 @@ import java.util.Base64;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("testimonials")
 public class TestimonialsController {
     @Autowired(required = true)
