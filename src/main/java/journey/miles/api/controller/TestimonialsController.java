@@ -38,7 +38,9 @@ public class TestimonialsController {
 
         try {
             Testimonial testimonial = new Testimonial(testimonialDTOConverter.userName(),
-                    testimonialDTOConverter.testimonial(), _encodeBase64ToString(testimonialDTOConverter.profilePicture()));
+                    testimonialDTOConverter.testimonial(),
+                    _encodeBase64ToString(testimonialDTOConverter.profilePicture()),
+                    testimonialDTOConverter.createDate());
 
             repository.save(testimonial);
 
@@ -54,7 +56,7 @@ public class TestimonialsController {
     }
 
     @GetMapping
-    public Page<Testimonial> getAllTestimonials(@PageableDefault(size = 5, sort = {"userName"}) Pageable pagination) {
+    public Page<Testimonial> getAllTestimonials(@PageableDefault(size = 3, sort = {"createDate"}) Pageable pagination) {
         return repository.findAll(pagination);
     }
 
