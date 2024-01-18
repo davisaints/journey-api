@@ -57,6 +57,7 @@ public class TestimonialsController {
 
     @GetMapping
     public Page<Testimonial> getAllTestimonials(@PageableDefault(size = 5, sort = {"userName"}) Pageable pagination) {
+    public Page<Testimonial> getAllTestimonials(@PageableDefault(size = 3, sort = {"createDate"}) Pageable pagination) {
         return repository.findAll(pagination);
     }
 
