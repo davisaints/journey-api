@@ -4,6 +4,7 @@
         import lombok.*;
 
         import java.time.LocalDate;
+        import java.time.LocalDateTime;
 
         @Table(name = "testimonials")
         @Entity(name = "Testimonial")
@@ -19,10 +20,11 @@
             private String testimonial;
             @Column(columnDefinition = "TEXT")
             private String profilePicture64;
-
-            public Testimonial(String userName, String testimonial, String profilePicture64) {
+            private LocalDateTime createDate;
+            public Testimonial(String userName, String testimonial, String profilePicture64, LocalDateTime createDate) {
                 this.userName = userName;
                 this.testimonial = testimonial;
                 this.profilePicture64 = profilePicture64;
+                this.createDate = LocalDateTime.now();
             }
         }
