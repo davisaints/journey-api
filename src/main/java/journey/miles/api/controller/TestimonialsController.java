@@ -38,7 +38,9 @@ public class TestimonialsController {
 
         try {
             Testimonial testimonial = new Testimonial(testimonialDTOConverter.userName(),
-                    testimonialDTOConverter.testimonial(), _encodeBase64ToString(testimonialDTOConverter.profilePicture()));
+                    testimonialDTOConverter.testimonial(),
+                    _encodeBase64ToString(testimonialDTOConverter.profilePicture()),
+                    testimonialDTOConverter.createDate());
 
             repository.save(testimonial);
 
