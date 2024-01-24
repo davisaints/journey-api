@@ -1,6 +1,8 @@
 package journey.miles.api.service.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import journey.miles.api.dto.TestimonialDTOConverter;
+import journey.miles.api.dto.TestimonialDTOData;
 import journey.miles.api.model.Testimonial;
 import journey.miles.api.repository.TestimonialRepository;
 import journey.miles.api.service.TestimonialService;
@@ -21,7 +23,7 @@ public class TestimonialServiceImpl implements TestimonialService {
     private TestimonialRepository repository;
 
     @Override
-    public String postTestimonial(TestimonialDTOConverter testimonialDTOConverter) throws IOException {
+    public TestimonialDTOData postTestimonial(TestimonialDTOConverter testimonialDTOConverter) throws IOException {
         _validateImageSize(testimonialDTOConverter.profilePicture());
         _validateImageFormat(testimonialDTOConverter.profilePicture());
 
@@ -33,13 +35,15 @@ public class TestimonialServiceImpl implements TestimonialService {
 
             repository.save(testimonial);
 
-            return "Testimonial posted successfully";
+            return new TestimonialDTOData(testimonial);
+        } catch (IOException e) {
+            throw new IOException("Error handling image data: " + e.getMessage(), e);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException("Invalid input data: " + e.getMessage(), e);
         } catch (DataIntegrityViolationException e) {
-            return "Data truncation: " + e.getMessage();
+            throw new DataIntegrityViolationException("Database integrity violation: " + e.getMessage(), e);
         } catch (Exception e) {
-            throw new RuntimeException("An unexpected error occurred", e);
+            throw new RuntimeException("An unexpected error occurred: " + e.getMessage(), e);
         }
     }
 
@@ -48,16 +52,15 @@ public class TestimonialServiceImpl implements TestimonialService {
         return repository.findAll(pageable);
     }
 
-
     @Override
     public List<Testimonial> getTestimonialByUserName(String userName) {
         return repository.findByUserName(userName);
     }
 
     @Override
-    public String putTestimonial(TestimonialDTOConverter testimonialDTOConverter, Long id) throws IOException {
+    public TestimonialDTOData putTestimonial(TestimonialDTOConverter testimonialDTOConverter, Long id) throws IOException {
         Testimonial testimonial =
-                repository.findById(testimonialDTOConverter.id()).orElseThrow(() -> new RuntimeException(
+                repository.findById(testimonialDTOConverter.id()).orElseThrow(() -> new EntityNotFoundException(
                         "Testimonial not found with the Id provided"));
 
         if (testimonialDTOConverter.profilePicture() != null) {
@@ -69,20 +72,24 @@ public class TestimonialServiceImpl implements TestimonialService {
             testimonial.setProfilePicture64(profilePicture64);
         }
 
-        testimonial.setUserName(testimonialDTOConverter.userName());
-        testimonial.setTestimonial(testimonialDTOConverter.testimonial());
+        if (testimonialDTOConverter.userName() != null) {
+            testimonial.setUserName(testimonialDTOConverter.userName());
+        }
+
+        if (testimonialDTOConverter.testimonial() != null) {
+            testimonial.setTestimonial(testimonialDTOConverter.testimonial());
+        }
 
         repository.save(testimonial);
 
-        return "Testimonial updated successfully";
+        return new TestimonialDTOData(testimonial);
     }
 
         @Override
         public String deleteTestimonial(Long id) {
             repository.findById(id).orElseThrow();
-
             repository.deleteById(id);
 
-            return "Testimonial deleted successfully";
+            return null;
         }
 }

@@ -3,6 +3,7 @@ package journey.miles.api.controller;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import journey.miles.api.dto.TestimonialDTOConverter;
+import journey.miles.api.dto.TestimonialDTOData;
 import journey.miles.api.model.Testimonial;
 import journey.miles.api.service.TestimonialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class TestimonialsController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<String> postTestimonials(@Valid @ModelAttribute TestimonialDTOConverter testimonialDTOConverter) throws IOException {
-            return new ResponseEntity<>(testimonialService.postTestimonial(testimonialDTOConverter), HttpStatus.OK);
+    public ResponseEntity<TestimonialDTOData> postTestimonials(@Valid @ModelAttribute TestimonialDTOConverter testimonialDTOConverter) throws IOException {
+            return new ResponseEntity<>(testimonialService.postTestimonial(testimonialDTOConverter), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -34,7 +35,7 @@ public class TestimonialsController {
         return testimonialService.getAllTestimonials(pageable);
     }
 
-    @GetMapping("/get-testimonial-by-user-name")
+    @GetMapping("/get-by-user-name")
     public ResponseEntity<List<Testimonial>> getTestimonialByUserName(@RequestParam(name = "userName") String userName) {
         return new ResponseEntity<>(testimonialService.getTestimonialByUserName(userName),
                 HttpStatus.OK);
@@ -42,15 +43,15 @@ public class TestimonialsController {
 
     @PutMapping
     @Transactional
-    public ResponseEntity<String> putTestimonial(@ModelAttribute TestimonialDTOConverter testimonialDTOConverter,
-                               Long id) throws IOException {
+    public ResponseEntity<TestimonialDTOData> putTestimonial(@ModelAttribute TestimonialDTOConverter testimonialDTOConverter,
+                                                             Long id) throws IOException {
         return new ResponseEntity<>(testimonialService.putTestimonial(testimonialDTOConverter,
                 id), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
     @Transactional
-    public String deleteTestimonial(@PathVariable("id") Long id) {
-        return testimonialService.deleteTestimonial(id);
+    public ResponseEntity<String> deleteTestimonial(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(testimonialService.deleteTestimonial(id), HttpStatus.NO_CONTENT);
     }
 }
