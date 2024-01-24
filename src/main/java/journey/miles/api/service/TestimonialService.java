@@ -11,7 +11,7 @@ import java.util.List;
 public interface TestimonialService {
     Page<Testimonial> getAllTestimonials(Pageable pageable);
 
-    String postTestimonial(TestimonialDTOConverter testimonialDTOConverter) throws IOException;
+    TestimonialDTOData postTestimonial(TestimonialDTOConverter testimonialDTOConverter) throws IOException;
 
     List<Testimonial> getTestimonialByUserName(String userName);
 

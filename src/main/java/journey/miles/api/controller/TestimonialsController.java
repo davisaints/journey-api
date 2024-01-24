@@ -3,6 +3,7 @@ package journey.miles.api.controller;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import journey.miles.api.dto.TestimonialDTOConverter;
+import journey.miles.api.dto.TestimonialDTOData;
 import journey.miles.api.model.Testimonial;
 import journey.miles.api.service.TestimonialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class TestimonialsController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<String> postTestimonials(@Valid @ModelAttribute TestimonialDTOConverter testimonialDTOConverter) throws IOException {
-            return new ResponseEntity<>(testimonialService.postTestimonial(testimonialDTOConverter), HttpStatus.OK);
+    public ResponseEntity<TestimonialDTOData> postTestimonials(@Valid @ModelAttribute TestimonialDTOConverter testimonialDTOConverter) throws IOException {
+            return new ResponseEntity<>(testimonialService.postTestimonial(testimonialDTOConverter), HttpStatus.CREATED);
     }
 
     @GetMapping

@@ -1,6 +1,7 @@
 package journey.miles.api.service.impl;
 
 import journey.miles.api.dto.TestimonialDTOConverter;
+import journey.miles.api.dto.TestimonialDTOData;
 import journey.miles.api.model.Testimonial;
 import journey.miles.api.repository.TestimonialRepository;
 import journey.miles.api.service.TestimonialService;
@@ -21,7 +22,7 @@ public class TestimonialServiceImpl implements TestimonialService {
     private TestimonialRepository repository;
 
     @Override
-    public String postTestimonial(TestimonialDTOConverter testimonialDTOConverter) throws IOException {
+    public TestimonialDTOData postTestimonial(TestimonialDTOConverter testimonialDTOConverter) throws IOException {
         _validateImageSize(testimonialDTOConverter.profilePicture());
         _validateImageFormat(testimonialDTOConverter.profilePicture());
 
@@ -33,7 +34,7 @@ public class TestimonialServiceImpl implements TestimonialService {
 
             repository.save(testimonial);
 
-            return "Testimonial posted successfully";
+            return new TestimonialDTOData(testimonial);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
         } catch (DataIntegrityViolationException e) {
