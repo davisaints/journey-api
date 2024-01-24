@@ -61,7 +61,7 @@ public class TestimonialServiceImpl implements TestimonialService {
     @Override
     public TestimonialDTOData putTestimonial(TestimonialDTOConverter testimonialDTOConverter, Long id) throws IOException {
         Testimonial testimonial =
-                repository.findById(testimonialDTOConverter.id()).orElseThrow(() -> new RuntimeException(
+                repository.findById(testimonialDTOConverter.id()).orElseThrow(() -> new EntityNotFoundException(
                         "Testimonial not found with the Id provided"));
 
         if (testimonialDTOConverter.profilePicture() != null) {
