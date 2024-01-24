@@ -73,8 +73,13 @@ public class TestimonialServiceImpl implements TestimonialService {
             testimonial.setProfilePicture64(profilePicture64);
         }
 
-        testimonial.setUserName(testimonialDTOConverter.userName());
-        testimonial.setTestimonial(testimonialDTOConverter.testimonial());
+        if (testimonialDTOConverter.userName() != null) {
+            testimonial.setUserName(testimonialDTOConverter.userName());
+        }
+
+        if (testimonialDTOConverter.testimonial() != null) {
+            testimonial.setTestimonial(testimonialDTOConverter.testimonial());
+        }
 
         repository.save(testimonial);
 
