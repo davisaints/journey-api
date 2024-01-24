@@ -18,6 +18,5 @@ public interface TestimonialService {
 
     TestimonialDTOData putTestimonial(TestimonialDTOConverter testimonialDTOConverter,
                                       Long id) throws IOException;
-
     String deleteTestimonial(Long id);
 }

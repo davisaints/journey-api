@@ -52,7 +52,6 @@ public class TestimonialServiceImpl implements TestimonialService {
         return repository.findAll(pageable);
     }
 
-
     @Override
     public List<Testimonial> getTestimonialByUserName(String userName) {
         return repository.findByUserName(userName);
@@ -89,7 +88,6 @@ public class TestimonialServiceImpl implements TestimonialService {
         @Override
         public String deleteTestimonial(Long id) {
             repository.findById(id).orElseThrow();
-
             repository.deleteById(id);
 
             return null;
