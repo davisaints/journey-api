@@ -77,7 +77,7 @@
 				<configuration>
 					<url>jdbc:mysql://0.0.0.0:3307/journey</url>
 					<user>root</user>
-					<password></password>
+					<password/>
 				</configuration>
 			</plugin>
 		</plugins>
