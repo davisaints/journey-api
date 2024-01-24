@@ -51,7 +51,7 @@ public class TestimonialsController {
 
     @DeleteMapping("{id}")
     @Transactional
-    public String deleteTestimonial(@PathVariable("id") Long id) {
-        return testimonialService.deleteTestimonial(id);
+    public ResponseEntity<String> deleteTestimonial(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(testimonialService.deleteTestimonial(id), HttpStatus.NO_CONTENT);
     }
 }

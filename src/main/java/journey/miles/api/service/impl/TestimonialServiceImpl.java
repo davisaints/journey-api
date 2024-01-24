@@ -84,6 +84,6 @@ public class TestimonialServiceImpl implements TestimonialService {
 
             repository.deleteById(id);
 
-            return "Testimonial deleted successfully";
+            return null;
         }
 }
