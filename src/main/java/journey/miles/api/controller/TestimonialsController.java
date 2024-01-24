@@ -35,7 +35,7 @@ public class TestimonialsController {
         return testimonialService.getAllTestimonials(pageable);
     }
 
-    @GetMapping("/get-testimonial-by-user-name")
+    @GetMapping("/get-by-user-name")
     public ResponseEntity<List<Testimonial>> getTestimonialByUserName(@RequestParam(name = "userName") String userName) {
         return new ResponseEntity<>(testimonialService.getTestimonialByUserName(userName),
                 HttpStatus.OK);
