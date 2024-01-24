@@ -1,5 +1,6 @@
 package journey.miles.api.service.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import journey.miles.api.dto.TestimonialDTOConverter;
 import journey.miles.api.dto.TestimonialDTOData;
 import journey.miles.api.model.Testimonial;
@@ -35,12 +36,14 @@ public class TestimonialServiceImpl implements TestimonialService {
             repository.save(testimonial);
 
             return new TestimonialDTOData(testimonial);
+        } catch (IOException e) {
+            throw new IOException("Error handling image data: " + e.getMessage(), e);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException("Invalid input data: " + e.getMessage(), e);
         } catch (DataIntegrityViolationException e) {
-            return "Data truncation: " + e.getMessage();
+            throw new DataIntegrityViolationException("Database integrity violation: " + e.getMessage(), e);
         } catch (Exception e) {
-            throw new RuntimeException("An unexpected error occurred", e);
+            throw new RuntimeException("An unexpected error occurred: " + e.getMessage(), e);
         }
     }
 
