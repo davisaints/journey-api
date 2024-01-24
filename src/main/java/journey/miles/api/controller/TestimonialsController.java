@@ -43,8 +43,8 @@ public class TestimonialsController {
 
     @PutMapping
     @Transactional
-    public ResponseEntity<String> putTestimonial(@ModelAttribute TestimonialDTOConverter testimonialDTOConverter,
-                               Long id) throws IOException {
+    public ResponseEntity<TestimonialDTOData> putTestimonial(@ModelAttribute TestimonialDTOConverter testimonialDTOConverter,
+                                                             Long id) throws IOException {
         return new ResponseEntity<>(testimonialService.putTestimonial(testimonialDTOConverter,
                 id), HttpStatus.OK);
     }

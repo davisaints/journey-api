@@ -56,7 +56,7 @@ public class TestimonialServiceImpl implements TestimonialService {
     }
 
     @Override
-    public String putTestimonial(TestimonialDTOConverter testimonialDTOConverter, Long id) throws IOException {
+    public TestimonialDTOData putTestimonial(TestimonialDTOConverter testimonialDTOConverter, Long id) throws IOException {
         Testimonial testimonial =
                 repository.findById(testimonialDTOConverter.id()).orElseThrow(() -> new RuntimeException(
                         "Testimonial not found with the Id provided"));
@@ -75,7 +75,7 @@ public class TestimonialServiceImpl implements TestimonialService {
 
         repository.save(testimonial);
 
-        return "Testimonial updated successfully";
+        return new TestimonialDTOData(testimonial);
     }
 
         @Override

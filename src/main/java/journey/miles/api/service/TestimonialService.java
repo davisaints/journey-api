@@ -1,6 +1,7 @@
 package journey.miles.api.service;
 
 import journey.miles.api.dto.TestimonialDTOConverter;
+import journey.miles.api.dto.TestimonialDTOData;
 import journey.miles.api.model.Testimonial;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,8 +16,8 @@ public interface TestimonialService {
 
     List<Testimonial> getTestimonialByUserName(String userName);
 
-    String putTestimonial(TestimonialDTOConverter testimonialDTOConverter,
-                                          Long id) throws IOException;
+    TestimonialDTOData putTestimonial(TestimonialDTOConverter testimonialDTOConverter,
+                                      Long id) throws IOException;
 
     String deleteTestimonial(Long id);
 }
