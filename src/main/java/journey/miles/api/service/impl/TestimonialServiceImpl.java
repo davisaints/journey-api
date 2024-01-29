@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.NoSuchElementException;
 
 import static journey.miles.api.util.FileUtil.*;
 
@@ -89,11 +89,12 @@ public class TestimonialServiceImpl implements TestimonialService {
         return new TestimonialDTOData(testimonial);
     }
 
-        @Override
-        public String deleteTestimonial(Long id) {
-            repository.findById(id).orElseThrow();
-            repository.deleteById(id);
+    @Override
+    public String deleteTestimonial(Long id) {
+        repository.findById(id).orElseThrow(() -> new NoSuchElementException("Testimonial" +
+                " not found with the provided id"));
+        repository.deleteById(id);
 
-            return null;
-        }
+        return null;
+    }
 }
