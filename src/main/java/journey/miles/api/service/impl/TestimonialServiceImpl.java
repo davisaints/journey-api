@@ -53,8 +53,9 @@ public class TestimonialServiceImpl implements TestimonialService {
     }
 
     @Override
-    public List<Testimonial> getTestimonialByUserName(String userName) {
-        return repository.findByUserName(userName);
+    public TestimonialDTOData getTestimonialById(Long id) {
+
+        return new TestimonialDTOData(testimonial);
     }
 
     @Override
