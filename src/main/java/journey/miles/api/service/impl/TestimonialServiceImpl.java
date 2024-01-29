@@ -54,6 +54,9 @@ public class TestimonialServiceImpl implements TestimonialService {
 
     @Override
     public TestimonialDTOData getTestimonialById(Long id) {
+        Testimonial testimonial =
+                repository.findById(id).orElseThrow(() -> new NoSuchElementException("Testimonial" +
+                        " not found with the provided id"));
 
         return new TestimonialDTOData(testimonial);
     }
