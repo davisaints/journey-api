@@ -14,14 +14,14 @@ import java.util.NoSuchElementException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<String> handleNotFound(EntityNotFoundException e) {   
+    public ResponseEntity<String> handleNotFound(EntityNotFoundException e) {
         var error = e.getMessage();
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<String> handleNotFound(NoSuchElementException e) {
+    public ResponseEntity<String> handleNPE(NoSuchElementException e) {
         var error = e.getMessage();
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
