@@ -19,7 +19,7 @@ import static journey.miles.api.util.FileUtil.*;
 
 @Service
 public class TestimonialServiceImpl implements TestimonialService {
-    @Autowired(required = true)
+    @Autowired
     private TestimonialRepository repository;
 
     @Override
