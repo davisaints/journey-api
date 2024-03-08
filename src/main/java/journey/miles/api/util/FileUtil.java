@@ -1,8 +1,8 @@
 package journey.miles.api.util;
 
 import journey.miles.api.constants.Constants;
-import journey.miles.api.exception.InvalidImageSizeException;
-import journey.miles.api.exception.UnsupportedFileExtensionException;
+import journey.miles.api.infra.exception.InvalidImageSizeException;
+import journey.miles.api.infra.exception.UnsupportedFileExtensionException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class FileUtil {
     }
 
     public static boolean _containsExtension(String target) {
-        for (String extension : Constants.imageExtensions) {
+        for (String extension : Constants.IMAGE_EXTENSIONS) {
             if (extension.equalsIgnoreCase(target)) {
                 return true;
             }

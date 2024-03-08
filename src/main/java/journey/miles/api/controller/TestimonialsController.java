@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import journey.miles.api.dto.TestimonialDTOConverter;
 import journey.miles.api.dto.TestimonialDTOData;
-import journey.miles.api.model.Testimonial;
+import journey.miles.api.model.testimonial.Testimonial;
 import journey.miles.api.service.TestimonialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @CrossOrigin
