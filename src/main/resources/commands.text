@@ -4,3 +4,6 @@ mvn flyway:repair
 
 ## Kill port
 npx kill-port 8080
+
+
+$2a$10$Y50UaMFOxteibQEYLrwuHeehHYfcoafCopUazP12.rqB41bsolF5.
