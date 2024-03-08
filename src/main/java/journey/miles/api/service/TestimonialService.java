@@ -2,7 +2,7 @@ package journey.miles.api.service;
 
 import journey.miles.api.dto.TestimonialDTOConverter;
 import journey.miles.api.dto.TestimonialDTOData;
-import journey.miles.api.model.Testimonial;
+import journey.miles.api.model.testimonial.Testimonial;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

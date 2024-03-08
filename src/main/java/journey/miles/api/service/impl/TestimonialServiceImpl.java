@@ -3,7 +3,7 @@ package journey.miles.api.service.impl;
 import jakarta.persistence.EntityNotFoundException;
 import journey.miles.api.dto.TestimonialDTOConverter;
 import journey.miles.api.dto.TestimonialDTOData;
-import journey.miles.api.model.Testimonial;
+import journey.miles.api.model.testimonial.Testimonial;
 import journey.miles.api.repository.TestimonialRepository;
 import journey.miles.api.service.TestimonialService;
 import org.springframework.beans.factory.annotation.Autowired;
