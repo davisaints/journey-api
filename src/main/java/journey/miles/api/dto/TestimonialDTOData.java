@@ -1,6 +1,6 @@
 package journey.miles.api.dto;
 
-import journey.miles.api.model.Testimonial;
+import journey.miles.api.model.testimonial.Testimonial;
 import java.time.LocalDateTime;
 
 public record TestimonialDTOData(Long id, String userName, String testimonial,
