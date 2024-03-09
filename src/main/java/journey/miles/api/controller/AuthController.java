@@ -2,7 +2,7 @@ package journey.miles.api.controller;
 
 import jakarta.validation.Valid;
 import journey.miles.api.dto.UserDTOData;
-import journey.miles.api.infra.security.JWTTokenDTOData;
+import journey.miles.api.dto.JWTTokenDTOData;
 import journey.miles.api.infra.security.TokenService;
 import journey.miles.api.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
