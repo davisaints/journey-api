@@ -17,7 +17,6 @@ public class Testimonial {
     private Long id;
     private String userName;
     private String testimonial;
-    @Column(columnDefinition = "TEXT")
     private String profilePicture64;
     private LocalDateTime createDate;
     public Testimonial(String userName, String testimonial, String profilePicture64, LocalDateTime createDate) {
