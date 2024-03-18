@@ -11,6 +11,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.logging.Logger;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -46,6 +48,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleNPE(Exception ex) {
+        logger.severe(ex.getMessage());
+
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " +ex.getLocalizedMessage());
     }
 
@@ -54,4 +58,6 @@ public class GlobalExceptionHandler {
             this(error.getField(), error.getDefaultMessage());
         }
     }
+
+    private static final Logger logger = Logger.getLogger(GlobalExceptionHandler.class.getName());
 }
