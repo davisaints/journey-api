@@ -8,11 +8,11 @@ import journey.miles.api.repository.TestimonialRepository;
 import journey.miles.api.service.TestimonialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static journey.miles.api.util.FileUtil.*;
@@ -48,8 +48,10 @@ public class TestimonialServiceImpl implements TestimonialService {
     }
 
     @Override
-    public Page<Testimonial> getAllTestimonials(Pageable pageable) {
-        return repository.findAll(pageable);
+    public List<TestimonialDTOData> getAllTestimonials(Pageable pageable) {
+        return repository.findAll(pageable).stream()
+                .map(TestimonialDTOData::new)
+                .toList();
     }
 
     @Override
